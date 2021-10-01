@@ -27,7 +27,7 @@ internal fun List<Character>.toCharacterDto(): List<CharacterEntity> {
     }
 }
 
-internal fun List<CharacterEntity>.toCharacter(): List<Character> {
+internal fun List<CharacterEntity>.toCharacterList(): List<Character> {
     return this.map {
         Character(
             id = it.id,
@@ -54,8 +54,7 @@ internal fun FavoriteEntity.toCharacter(): Character {
         )
 }
 
-@JvmName("toCharacterFavoriteEntity")
-internal fun List<FavoriteEntity>.toCharacter(): List<Character> {
+internal fun List<FavoriteEntity>.favoriteToCharacterList(): List<Character> {
     return this.map {
         Character(
             id = it.id,

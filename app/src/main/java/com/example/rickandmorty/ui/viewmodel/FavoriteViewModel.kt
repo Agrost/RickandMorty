@@ -4,11 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.rickandmorty.data.Answer
-import com.example.rickandmorty.data.room.dao.CharacterListDao
+import com.example.rickandmorty.data.favoriteToCharacterList
 import com.example.rickandmorty.data.room.dao.FavoriteListDao
-import com.example.rickandmorty.data.room.entity.CharacterEntity
 import com.example.rickandmorty.data.room.entity.FavoriteEntity
-import com.example.rickandmorty.data.toCharacter
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
@@ -24,7 +22,7 @@ class FavoriteViewModel @Inject constructor(
     private val _answer: MutableLiveData<Answer> = MutableLiveData(Answer.Loading)
     val answer: LiveData<Answer> get() = _answer
 
-    init{
+    init {
         getData()
     }
 
@@ -42,7 +40,7 @@ class FavoriteViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-                        this._answer.value = Answer.Success(it.toCharacter())
+                        this._answer.value = Answer.Success(it.favoriteToCharacterList())
                     },
                     {
                         _answer.value = Answer.Failure()
@@ -52,9 +50,16 @@ class FavoriteViewModel @Inject constructor(
     }
 
     fun deleteFromFavorite(id: Int) {
-        Completable.fromAction {
-            favoriteListDao.deleteById(id)
-        }.subscribeOn(Schedulers.io())
-            .subscribe()
+        compositeDisposable.add(
+            Completable.fromAction {
+                favoriteListDao.deleteById(id)
+            }.subscribeOn(Schedulers.io())
+                .subscribe()
+        )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
     }
 }

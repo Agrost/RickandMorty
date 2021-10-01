@@ -21,7 +21,7 @@ class HomeViewModel @Inject constructor(
     private val getHomeUseCase: GetHomeUseCase,
     private val characterListDao: CharacterListDao,
     private val favoriteListDao: FavoriteListDao,
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private val _answer: MutableLiveData<Answer> = MutableLiveData(Answer.Loading)
@@ -37,10 +37,12 @@ class HomeViewModel @Inject constructor(
     }
 
     fun addToFavorite(character: Character) {
-        Completable.fromAction {
-            favoriteListDao.insert(character.toFavoriteDto())
-        }.subscribeOn(Schedulers.io())
-            .subscribe()
+        compositeDisposable.add(
+            Completable.fromAction {
+                favoriteListDao.insert(character.toFavoriteDto())
+            }.subscribeOn(Schedulers.io())
+                .subscribe()
+        )
     }
 
     fun getFirstPage(name: String) {
@@ -67,10 +69,12 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun addToPersonDatabase(listCharacter: List<Character>) {
-        Completable.fromAction {
-            characterListDao.insert(listCharacter.toCharacterDto())
-        }.subscribeOn(Schedulers.io())
-            .subscribe()
+        compositeDisposable.add(
+            Completable.fromAction {
+                characterListDao.insert(listCharacter.toCharacterDto())
+            }.subscribeOn(Schedulers.io())
+                .subscribe()
+        )
     }
 
     fun getNextPage() {

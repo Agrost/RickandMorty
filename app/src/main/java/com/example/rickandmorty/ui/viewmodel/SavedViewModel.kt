@@ -7,7 +7,7 @@ import com.example.rickandmorty.data.Answer
 import com.example.rickandmorty.data.room.dao.CharacterListDao
 import com.example.rickandmorty.data.room.dao.FavoriteListDao
 import com.example.rickandmorty.data.room.entity.CharacterEntity
-import com.example.rickandmorty.data.toCharacter
+import com.example.rickandmorty.data.toCharacterList
 import com.example.rickandmorty.data.toFavoriteDto
 import com.example.rickandmorty.domain.entity.Character
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -27,10 +27,6 @@ class SavedViewModel @Inject constructor(
     val answer: LiveData<Answer> get() = _answer
 
     init {
-        getData()
-    }
-
-    fun getData() {
         setObserver(characterListDao.getCharacters())
     }
 
@@ -39,10 +35,12 @@ class SavedViewModel @Inject constructor(
     }
 
     fun addToFavorite(character: Character) {
-        Completable.fromAction {
-            favoriteListDao.insert(character.toFavoriteDto())
-        }.subscribeOn(Schedulers.io())
-            .subscribe()
+        compositeDisposable.add(
+            Completable.fromAction {
+                favoriteListDao.insert(character.toFavoriteDto())
+            }.subscribeOn(Schedulers.io())
+                .subscribe()
+        )
     }
 
     private fun setObserver(observable: Single<List<CharacterEntity>>) {
@@ -51,7 +49,7 @@ class SavedViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-                        this._answer.value = Answer.Success(it.toCharacter())
+                        this._answer.value = Answer.Success(it.toCharacterList())
                     },
                     {
                         _answer.value = Answer.Failure()
