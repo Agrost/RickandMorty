@@ -102,7 +102,6 @@ abstract class BaseFragment : Fragment(R.layout.recycler_fragment) {
                 override fun onQueryTextSubmit(query: String): Boolean {
                     return false
                 }
-
             })
         }).map { text -> text.lowercase(Locale.getDefault()).trim() }
             .debounce(200, TimeUnit.MILLISECONDS)

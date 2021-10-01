@@ -1,18 +1,10 @@
 package com.example.rickandmorty.ui.fragment
 
-import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.rickandmorty.appComponent
 import com.example.rickandmorty.domain.entity.Character
 import com.example.rickandmorty.ui.recycler.RecyclerAdapter
 import com.example.rickandmorty.ui.viewmodel.HomeViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable.create
-import io.reactivex.rxjava3.core.ObservableOnSubscribe
-import java.util.*
-import java.util.concurrent.TimeUnit
 
 class HomeFragment : BaseFragment() {
 

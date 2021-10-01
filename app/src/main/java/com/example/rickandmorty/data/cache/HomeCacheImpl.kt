@@ -1,18 +1,11 @@
 package com.example.rickandmorty.data.cache
 
 import com.example.rickandmorty.data.Answer
-import com.example.rickandmorty.data.room.dao.CharacterListDao
-import com.example.rickandmorty.data.toCharacter
-import com.example.rickandmorty.data.toCharacterDto
 import com.example.rickandmorty.domain.entity.Character
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
-class HomeCacheImpl @Inject constructor() :
-    HomeCache {
+class HomeCacheImpl @Inject constructor() : HomeCache {
 
     private var characterList: List<Character>? = null
     private var lastPage = 1
