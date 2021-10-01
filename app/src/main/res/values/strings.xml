@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">RickandMorty</string>
+    <string name="app_name">Rick and Morty</string>
+    <string name="id_text">(%1$s)</string>
+    <string name="repo_name_text">\"%1$s\"</string>
+    <string name="open_in_browser">Open in Browser</string>
+    <string name="share">share</string>
+    <string name="characters">Персонажи</string>
+    <string name="favorite">Избранное</string>
+    <string name="saved">Сохраненное</string>
+    <string name="retry">Повторить</string>
+    <string name="error_message">При загрузке данных произошла ошибка. Проверьте ваше подключение к сети</string>
+    <string name="toast_error_message">Не получилось загрузить следующих персонажей</string>
+    <string name="character_name">character name</string>
+    <string name="add_to_favorites">Добавить в избранное</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="character_image">character image</string>
+    <string name="delete_from_favorites">delete from favorites</string>
 </resources>
