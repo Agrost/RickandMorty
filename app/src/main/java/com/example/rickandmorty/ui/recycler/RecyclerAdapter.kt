@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.rickandmorty.R
+import com.example.rickandmorty.databinding.PesronCardBinding
 import com.example.rickandmorty.domain.entity.Character
 
 class RecyclerAdapter(
@@ -18,7 +19,7 @@ class RecyclerAdapter(
     val addToFavorite: (Character) -> Unit,
     val deleteFromFavorite: (Int) -> Unit,
     val isFavorite: Boolean
-) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerAdapter.CharacterViewHolder>() {
 
     var items: MutableList<Character> = mutableListOf()
         set(value) {
@@ -29,38 +30,51 @@ class RecyclerAdapter(
 
     override fun getItemCount(): Int = items.count()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
+        return CharacterViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.pesron_card, parent, false)
-        )
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val idText = holder.itemView.context
-            .getString(R.string.id_text, items[position].id.toString())
-        holder.repoId.text = idText
-        holder.repoName.text = items[position].name
-        Glide.with(holder.characterImage.context)
-            .load(items[position].imageSrc)
-            .placeholder(R.drawable.animview)
-            .into(holder.characterImage)
-        holder.characterImage.setOnClickListener { openImageActivity(items[position]) }
-        holder.addToFavoriteButton.isVisible = !isFavorite
-        holder.addToFavoriteButton.setOnClickListener { addToFavorite(items[position]) }
-        holder.deleteIcon.isVisible = isFavorite
-        holder.deleteIcon.setOnClickListener {
+                .inflate(R.layout.pesron_card, parent, false),
+            openImageActivity,
+            addToFavorite,
+            isFavorite
+        ) { position ->
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, items.size)
             deleteFromFavorite(items[position].id)
         }
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var repoId: TextView = itemView.findViewById(R.id.character_id)
-        var repoName: TextView = itemView.findViewById(R.id.character_name)
-        var characterImage: ImageView = itemView.findViewById(R.id.character_image)
-        var deleteIcon: ImageView = itemView.findViewById(R.id.delete_from_favorite)
-        var addToFavoriteButton: Button = itemView.findViewById(R.id.add_to_favorite)
+    override fun onBindViewHolder(holderCharacter: CharacterViewHolder, position: Int) {
+        holderCharacter.bindData(items[position])
+    }
+
+    class CharacterViewHolder(
+        itemView: View,
+        val openImageActivity: (Character) -> Unit,
+        val addToFavorite: (Character) -> Unit,
+        val isFavorite: Boolean,
+        val deleteItemListener: (Int) -> Unit,
+    ) : RecyclerView.ViewHolder(itemView) {
+        private val binding = PesronCardBinding.bind(itemView)
+
+        fun bindData(character: Character) {
+            val idText = itemView.context
+                .getString(R.string.id_text, character.id.toString())
+            with(binding) {
+                characterId.text = idText
+                characterName.text = character.name
+                Glide.with(characterImage.context)
+                    .load(character.imageSrc)
+                    .placeholder(R.drawable.animview)
+                    .into(characterImage)
+                characterImage.setOnClickListener { openImageActivity(character) }
+                addToFavorite.isVisible = !isFavorite
+                addToFavorite.setOnClickListener { addToFavorite(character) }
+                deleteFromFavorite.isVisible = isFavorite
+                deleteFromFavorite.setOnClickListener {
+                    deleteItemListener(absoluteAdapterPosition)
+                }
+            }
+        }
     }
 }
