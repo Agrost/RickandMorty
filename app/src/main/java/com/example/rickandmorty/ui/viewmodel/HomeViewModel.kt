@@ -1,8 +1,5 @@
 package com.example.rickandmorty.ui.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.rickandmorty.data.Answer
 import com.example.rickandmorty.data.room.dao.CharacterListDao
 import com.example.rickandmorty.data.room.dao.FavoriteListDao
@@ -13,7 +10,6 @@ import com.example.rickandmorty.domain.usecase.GetHomeUseCase
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -21,18 +17,15 @@ class HomeViewModel @Inject constructor(
     private val getHomeUseCase: GetHomeUseCase,
     private val characterListDao: CharacterListDao,
     private val favoriteListDao: FavoriteListDao,
-) : ViewModel() {
+) : BaseViewModel() {
 
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-    private val _answer: MutableLiveData<Answer> = MutableLiveData(Answer.Loading)
-    val answer: LiveData<Answer> get() = _answer
     private var listCharacter: MutableList<Character> = mutableListOf()
 
     init {
         getData()
     }
 
-    fun getData() {
+    override fun getData() {
         setObserver(getHomeUseCase.getData())
     }
 
@@ -45,7 +38,7 @@ class HomeViewModel @Inject constructor(
         )
     }
 
-    fun getFirstPage(name: String) {
+    override fun getDataByName(name: String) {
         setObserver(getHomeUseCase.getFirstPage(name))
     }
 
@@ -103,10 +96,5 @@ class HomeViewModel @Inject constructor(
         listCharacter.addAll(answer.listCharacter)
         this._answer.value = Answer.Success(listCharacter)
         addToPersonDatabase(listCharacter)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.clear()
     }
 }
