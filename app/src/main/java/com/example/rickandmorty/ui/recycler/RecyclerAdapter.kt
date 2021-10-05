@@ -1,6 +1,5 @@
 package com.example.rickandmorty.ui.recycler
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,12 +21,10 @@ class RecyclerAdapter(
 ) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     var items: MutableList<Character> = mutableListOf()
-        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             val callback = DiffCallback(field, value)
             field = value
             DiffUtil.calculateDiff(callback).dispatchUpdatesTo(this)
-            notifyDataSetChanged() //Change to notifyItemRemoved()
         }
 
     override fun getItemCount(): Int = items.count()
@@ -44,7 +41,6 @@ class RecyclerAdapter(
             .getString(R.string.id_text, items[position].id.toString())
         holder.repoId.text = idText
         holder.repoName.text = items[position].name
-
         Glide.with(holder.characterImage.context)
             .load(items[position].imageSrc)
             .placeholder(R.drawable.animview)
@@ -54,6 +50,8 @@ class RecyclerAdapter(
         holder.addToFavoriteButton.setOnClickListener { addToFavorite(items[position]) }
         holder.deleteIcon.isVisible = isFavorite
         holder.deleteIcon.setOnClickListener {
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, items.size)
             deleteFromFavorite(items[position].id)
         }
     }

@@ -28,7 +28,8 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun getDataOnSearch(text: String) {
-        viewModel.getFirstPage(text)
+        viewModel.getDataByName(text)
+        super.getDataOnSearch(text)
     }
 
     override fun getDataOnRetry() {

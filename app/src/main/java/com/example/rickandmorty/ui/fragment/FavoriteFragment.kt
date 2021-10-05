@@ -33,6 +33,7 @@ class FavoriteFragment : BaseFragment() {
 
     override fun getDataOnSearch(text: String) {
         viewModel.getDataByName(text)
+        super.getDataOnSearch(text)
     }
 
     override fun getDataOnRetry() {
@@ -49,6 +50,5 @@ class FavoriteFragment : BaseFragment() {
 
     override fun deleteFromFavorite(id: Int) {
         viewModel.deleteFromFavorite(id)
-        viewModel.getDataByName(searchText)
     }
 }

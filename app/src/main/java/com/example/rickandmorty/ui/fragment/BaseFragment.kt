@@ -50,7 +50,12 @@ abstract class BaseFragment : Fragment(R.layout.recycler_fragment) {
 
     abstract fun getDataOnScroll()
 
-    abstract fun getDataOnSearch(text: String)
+    protected open fun getDataOnSearch(text: String) {
+        with(viewBinding) {
+            val layoutManager = characterRecycler.layoutManager as LinearLayoutManager
+            layoutManager.scrollToPositionWithOffset(0, 0)
+        }
+    }
 
     abstract fun getDataOnRetry()
 
