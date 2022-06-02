@@ -2,7 +2,6 @@ package com.example.rickandmorty.ui.fragment
 
 import androidx.lifecycle.ViewModelProvider
 import com.example.rickandmorty.appComponent
-import com.example.rickandmorty.data.toCharacterList
 import com.example.rickandmorty.domain.entity.Character
 import com.example.rickandmorty.ui.recycler.RecyclerAdapter
 import com.example.rickandmorty.ui.viewmodel.FavoriteViewModel

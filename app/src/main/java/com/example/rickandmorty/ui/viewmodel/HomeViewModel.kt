@@ -1,10 +1,10 @@
 package com.example.rickandmorty.ui.viewmodel
 
 import com.example.rickandmorty.data.Answer
+import com.example.rickandmorty.data.CharacterToFavoriteEntityMapper
+import com.example.rickandmorty.data.ListCharacterEntityToCharacterDtoMapper
 import com.example.rickandmorty.data.room.dao.CharacterListDao
 import com.example.rickandmorty.data.room.dao.FavoriteListDao
-import com.example.rickandmorty.data.toCharacterDto
-import com.example.rickandmorty.data.toFavoriteDto
 import com.example.rickandmorty.domain.entity.Character
 import com.example.rickandmorty.domain.usecase.GetHomeUseCase
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -16,8 +16,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getHomeUseCase: GetHomeUseCase,
     private val characterListDao: CharacterListDao,
-    private val favoriteListDao: FavoriteListDao,
-) : BaseViewModel() {
+    favoriteListDao: FavoriteListDao,
+) : BaseViewModel(favoriteListDao) {
 
     private var listCharacter: MutableList<Character> = mutableListOf()
 
@@ -32,7 +32,7 @@ class HomeViewModel @Inject constructor(
     fun addToFavorite(character: Character) {
         compositeDisposable.add(
             Completable.fromAction {
-                favoriteListDao.insert(character.toFavoriteDto())
+                favoriteListDao.insert(CharacterToFavoriteEntityMapper().map(character))
             }.subscribeOn(Schedulers.io())
                 .subscribe()
         )
@@ -47,12 +47,12 @@ class HomeViewModel @Inject constructor(
             observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    {
-                        if (it is Answer.Success) {
-                            addToPersonDatabase(it.listCharacter)
-                            listCharacter = it.listCharacter.toMutableList()
+                    { answer ->
+                        if (answer is Answer.Success) {
+                            addToPersonDatabase(answer.listCharacter)
+                            listCharacter = answer.listCharacter.toMutableList()
                         }
-                        _answer.value = it
+                        _answer.value = answer
                     },
                     {
                         _answer.value = Answer.Failure()
@@ -64,7 +64,9 @@ class HomeViewModel @Inject constructor(
     private fun addToPersonDatabase(listCharacter: List<Character>) {
         compositeDisposable.add(
             Completable.fromAction {
-                characterListDao.insert(listCharacter.toCharacterDto())
+                characterListDao.insert(
+                    ListCharacterEntityToCharacterDtoMapper().map(listCharacter)
+                )
             }.subscribeOn(Schedulers.io())
                 .subscribe()
         )

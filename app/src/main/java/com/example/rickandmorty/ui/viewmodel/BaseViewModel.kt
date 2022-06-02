@@ -4,9 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.rickandmorty.data.Answer
+import com.example.rickandmorty.data.room.dao.FavoriteListDao
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel(
+    protected val favoriteListDao: FavoriteListDao
+) : ViewModel() {
+
     protected val compositeDisposable: CompositeDisposable = CompositeDisposable()
     protected val _answer: MutableLiveData<Answer> = MutableLiveData(Answer.Loading)
     val answer: LiveData<Answer> get() = _answer

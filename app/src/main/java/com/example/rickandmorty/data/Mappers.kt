@@ -5,61 +5,72 @@ import com.example.rickandmorty.data.room.entity.CharacterEntity
 import com.example.rickandmorty.data.room.entity.FavoriteEntity
 import com.example.rickandmorty.domain.entity.Character
 
+interface Mapper<S, T> {
 
-internal fun JsonResponseDto.toCharacterList(): List<Character> {
-    return this.results.map {
-        Character(
-            id = it.id,
-            name = it.name,
-            imageSrc = it.image,
+    fun map(source: S): T
+}
+
+class JsonResponseDtoToCharacterListMapper() : Mapper<JsonResponseDto, List<Character>> {
+
+    override fun map(source: JsonResponseDto): List<Character> {
+        return source.results.map {
+            Character(
+                id = it.id,
+                name = it.name,
+                imageSrc = it.image,
+            )
+        }
+    }
+}
+
+class ListCharacterEntityToCharacterDtoMapper : Mapper<List<Character>, List<CharacterEntity>> {
+
+    override fun map(source: List<Character>): List<CharacterEntity> {
+        return source.map {
+            CharacterEntity(
+                tableId = it.id.toString() + it.name,
+                id = it.id,
+                name = it.name,
+                imageSrc = it.imageSrc
+            )
+        }
+    }
+}
+
+class ListCharacterEntityToCharacterListMapper : Mapper<List<CharacterEntity>, List<Character>> {
+
+    override fun map(source: List<CharacterEntity>): List<Character> {
+        return source.map {
+            Character(
+                id = it.id,
+                name = it.name,
+                imageSrc = it.imageSrc
+            )
+        }
+    }
+}
+
+class CharacterToFavoriteEntityMapper : Mapper<Character, FavoriteEntity> {
+
+    override fun map(source: Character): FavoriteEntity {
+        return FavoriteEntity(
+            tableId = source.id.toString() + source.name,
+            id = source.id,
+            name = source.name,
+            imageSrc = source.imageSrc
         )
     }
 }
 
-internal fun List<Character>.toCharacterDto(): List<CharacterEntity> {
-    return this.map {
-        CharacterEntity(
-            tableId = it.id.toString() + it.name,
-            id = it.id,
-            name = it.name,
-            imageSrc = it.imageSrc
-        )
-    }
-}
+class FavoriteEntityToCharacterListMapper : Mapper<List<FavoriteEntity>, List<Character>> {
 
-internal fun List<CharacterEntity>.toCharacterList(): List<Character> {
-    return this.map {
-        Character(
-            id = it.id,
-            name = it.name,
-            imageSrc = it.imageSrc
-        )
-    }
-}
-
-internal fun Character.toFavoriteDto(): FavoriteEntity {
-       return FavoriteEntity(
-            tableId = this.id.toString() + this.name,
-            id = this.id,
-            name = this.name,
-            imageSrc = this.imageSrc
-        )
-}
-
-internal fun FavoriteEntity.toCharacter(): Character {
-        return Character(
-            id = this.id,
-            name = this.name,
-            imageSrc = this.imageSrc
-        )
-}
-
-internal fun List<FavoriteEntity>.favoriteToCharacterList(): List<Character> {
-    return this.map {
-        Character(
-            id = it.id,
-            name = it.name,
-            imageSrc = it.imageSrc
-        )
+    override fun map(source: List<FavoriteEntity>): List<Character> {
+        return source.map {
+            Character(
+                id = it.id,
+                name = it.name,
+                imageSrc = it.imageSrc
+            )
+        }
     }
 }
