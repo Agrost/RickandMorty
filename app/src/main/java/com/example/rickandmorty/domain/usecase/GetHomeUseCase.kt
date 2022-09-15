@@ -7,6 +7,5 @@ class GetHomeUseCase @Inject constructor(
     private val homeRepository: HomeRepository
 ) {
     fun getData() = homeRepository.getData()
-    fun getFirstPage(name: String) = homeRepository.getFirstPage(name)
-    fun getNextPage() = homeRepository.getNextPage()
+    fun getNextPage(name: String) = homeRepository.getNextPage(name)
 }

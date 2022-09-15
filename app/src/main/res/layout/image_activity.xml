@@ -10,7 +10,7 @@
     android:layout_gravity="center"
     android:paddingHorizontal="20dp"
     android:paddingVertical="16dp">
-
+<!--TODO сделать через фрагмент-->
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/header"
         android:layout_width="match_parent"

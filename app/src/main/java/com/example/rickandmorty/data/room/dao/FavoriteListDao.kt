@@ -1,12 +1,9 @@
 package com.example.rickandmorty.data.room.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.rickandmorty.data.Answer
-import com.example.rickandmorty.data.room.entity.CharacterEntity
 import com.example.rickandmorty.data.room.entity.FavoriteEntity
 import io.reactivex.rxjava3.core.Single
 

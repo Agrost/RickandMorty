@@ -1,13 +1,10 @@
 package com.example.rickandmorty.data
 
-import com.example.rickandmorty.domain.entity.Character
+import com.example.rickandmorty.domain.entity.Person
 
-sealed class Answer {
-    object Loading : Answer()
-    class Success(
-        val listCharacter: List<Character>
-    ) : Answer()
-    class Failure(
-        val getNextPage: Boolean = false
-    ) : Answer()
+//TODO переработать
+sealed interface PersonState {
+    object Loading : PersonState
+    class Success(val listPerson: List<Person>) : PersonState
+    class Failure(val getNextPage: Boolean = false) : PersonState
 }

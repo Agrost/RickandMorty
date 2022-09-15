@@ -1,38 +1,20 @@
 package com.example.rickandmorty.data.cache
 
-import com.example.rickandmorty.data.Answer
-import com.example.rickandmorty.domain.entity.Character
-import io.reactivex.rxjava3.core.Single
-import javax.inject.Inject
+import com.example.rickandmorty.domain.entity.Person
 
-class HomeCacheImpl @Inject constructor() : HomeCache {
+class HomeCacheImpl : HomeCache {
 
-    private var characterList: List<Character>? = null
+    private var personList: MutableList<Person> = mutableListOf()
     private var lastPage = 1
-    private var lastSearchName = ""
 
     override fun getLastPage(): Int = lastPage
 
-    override fun getLastSearchName(): String = lastSearchName
-
-    override fun getHomeCache(): Single<Answer> {
-        return if (characterList != null) {
-            Single.just(Answer.Success(characterList!!))
-        } else {
-            Single.just(Answer.Failure())
-        }
+    override fun getPersonList(): List<Person> {
+        return personList.toList()
     }
 
-    override fun setCharacterList(characterList: List<Character>, name: String) {
-        this.characterList = characterList
-        lastPage = 2
-        lastSearchName = name
-    }
-
-    override fun setNextPage(characterList: List<Character>) {
-        val prevCharacterList = this.characterList?.toMutableList()
-        prevCharacterList?.addAll(characterList)
-        this.characterList = prevCharacterList
+    override fun addPersonList(personList: List<Person>) {
+        this.personList.addAll(personList)
         lastPage++
     }
 }

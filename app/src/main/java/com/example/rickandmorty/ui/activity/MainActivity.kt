@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.rickandmorty.domain.entity.Character
+import com.example.rickandmorty.domain.entity.Person
 import com.example.rickandmorty.ui.activity.interactor.FragmentInteractor
 import com.example.rickandmorty.R
 import com.example.rickandmorty.databinding.MainActivityBinding
@@ -38,11 +38,11 @@ class MainActivity: AppCompatActivity(R.layout.main_activity), FragmentInteracto
         }
     }
 
-    override fun openImageFragment(character: Character) {
+    override fun openImageFragment(person: Person) {
         val intent = Intent(this, ImageActivity::class.java)
-        intent.putExtra(CHARACTER_ID, character.id)
-        intent.putExtra(CHARACTER_NAME, character.name)
-        intent.putExtra(CHARACTER_SRC, character.imageSrc)
+        intent.putExtra(CHARACTER_ID, person.id)
+        intent.putExtra(CHARACTER_NAME, person.name)
+        intent.putExtra(CHARACTER_SRC, person.imageSrc)
         startActivity(intent)
     }
 }

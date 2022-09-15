@@ -1,7 +1,7 @@
 package com.example.rickandmorty.ui.activity.interactor
 
-import com.example.rickandmorty.domain.entity.Character
+import com.example.rickandmorty.domain.entity.Person
 
 interface FragmentInteractor {
-    fun openImageFragment(character: Character)
+    fun openImageFragment(person: Person)
 }

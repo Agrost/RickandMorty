@@ -1,9 +1,9 @@
 package com.example.rickandmorty.data.repository.home
 
-import com.example.rickandmorty.data.Answer
 import com.example.rickandmorty.data.JsonResponseDtoToCharacterListMapper
 import com.example.rickandmorty.data.cache.HomeCache
 import com.example.rickandmorty.data.remote.home.HomeRemoteSource
+import com.example.rickandmorty.domain.entity.Person
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
@@ -12,36 +12,16 @@ class HomeRepositoryImpl @Inject constructor(
     private val homeRemoteSource: HomeRemoteSource
 ) : HomeRepository {
 
-    override fun getData(): Single<Answer> {
-        return homeCache.getHomeCache().flatMap {
-            if (it is Answer.Failure) {
-                getFirstPage()
-            } else {
-                Single.just(it)
-            }
-        }
+    override fun getData(): Single<List<Person>> {
+        return Single.just(homeCache.getPersonList())
     }
 
-    override fun getFirstPage(name: String): Single<Answer> {
-        return homeRemoteSource.getJsonResponseDto(name, 1)
+    override fun getNextPage(name: String): Single<List<Person>> {
+        return homeRemoteSource.getJsonResponseDto(name, homeCache.getLastPage())
             .map {
-                homeCache.setCharacterList(
-                    JsonResponseDtoToCharacterListMapper().map(it),
-                    name
-                )
+                homeCache.addPersonList(JsonResponseDtoToCharacterListMapper().map(it))
             }
-            .flatMap { homeCache.getHomeCache() }
-    }
-
-    override fun getNextPage(): Single<Answer> {
-        val lastSearchName = homeCache.getLastSearchName()
-        val lastPage = homeCache.getLastPage()
-        return homeRemoteSource.getJsonResponseDto(lastSearchName, lastPage)
-            .map {
-                val characterList = JsonResponseDtoToCharacterListMapper().map(it)
-                homeCache.setNextPage(characterList)
-                Answer.Success(characterList)
-            }
+            .flatMap { Single.just(homeCache.getPersonList()) }
     }
 }
 
