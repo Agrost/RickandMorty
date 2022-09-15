@@ -1,16 +1,12 @@
 package com.example.rickandmorty.ui.fragment
 
-import androidx.lifecycle.ViewModelProvider
+import com.example.rickandmorty.R
 import com.example.rickandmorty.appComponent
-import com.example.rickandmorty.domain.entity.Character
-import com.example.rickandmorty.ui.recycler.RecyclerAdapter
 import com.example.rickandmorty.ui.viewmodel.FavoriteViewModel
 
-class FavoriteFragment : BaseFragment() {
+class FavoriteFragment : BaseRecyclerFragment<FavoriteViewModel>(R.layout.recycler_fragment) {
 
-    private lateinit var viewModel: FavoriteViewModel
-
-    override fun isFavorite(): Boolean = true
+    override val viewModelType: Class<FavoriteViewModel> = FavoriteViewModel::class.java
 
     override fun initDagger() {
         requireActivity().appComponent
@@ -19,35 +15,10 @@ class FavoriteFragment : BaseFragment() {
             .inject(this)
     }
 
-    override fun initViewModule() {
-        viewModel = ViewModelProvider(this, viewModelFactory)[FavoriteViewModel::class.java]
+    override fun setupBindings() {
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.getDataByName(searchText)
-    }
-
-    override fun getDataOnScroll() {}
-
-    override fun getDataOnSearch(text: String) {
-        viewModel.getDataByName(text)
-        super.getDataOnSearch(text)
-    }
-
-    override fun getDataOnRetry() {
-        viewModel.getDataByName(searchText)
-    }
-
-    override fun observeViewModel(recyclerAdapter: RecyclerAdapter) {
-        viewModel.answer.observe(viewLifecycleOwner) {
-            showView(it)
-        }
-    }
-
-    override fun addToFavorite(character: Character) {}
-
-    override fun deleteFromFavorite(id: Int) {
-        viewModel.deleteFromFavorite(id)
     }
 }
