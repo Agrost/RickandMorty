@@ -7,8 +7,8 @@ import retrofit2.http.Query
 interface Api {
 
     @GET("api/character/")
-    fun getJsonResponse(
+    suspend fun getJsonResponse(
         @Query("name") name: String,
         @Query("page") page: Int
-    ): Single<JsonResponseDto>
+    ): JsonResponseDto
 }

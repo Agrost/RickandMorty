@@ -7,7 +7,7 @@ import javax.inject.Inject
 class HomeRemoteSourceImpl @Inject constructor(
     private val api: Api
 ) : HomeRemoteSource {
-    override fun getJsonResponseDto(name: String, page: Int): Single<JsonResponseDto> {
+    override suspend fun getJsonResponseDto(name: String, page: Int): JsonResponseDto {
         return api.getJsonResponse(name, page)
     }
 }
