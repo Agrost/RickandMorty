@@ -13,7 +13,7 @@ abstract class BaseFragment<VM : BaseViewModel>(@LayoutRes contentLayoutId: Int)
     Fragment(contentLayoutId) {
 
     @Inject
-    private lateinit var viewModelFactory: ViewModelFactory<VM>
+    lateinit var viewModelFactory: ViewModelFactory<VM>
 
     protected abstract val viewModelType: Class<VM>
 

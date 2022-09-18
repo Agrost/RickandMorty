@@ -15,7 +15,7 @@ abstract class FavoriteViewModelModule {
     @FragmentScope
     @IntoMap
     @Binds
-    abstract fun bindsHomeViewModule(
+    abstract fun bindsFavoriteViewModule(
         favoriteViewModel: FavoriteViewModel
     ): ViewModel
 }

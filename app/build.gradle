@@ -49,15 +49,10 @@ dependencies {
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
     //Dagger
     implementation 'com.google.dagger:dagger:2.40.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt 'com.google.dagger:dagger-compiler:2.37'
-    //RxJava
-//    implementation "androidx.room:room-rxjava3:$room_version"
-    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.9'
     //OkHttp
     implementation 'com.squareup.okhttp3:okhttp:4.9.2'
     //Gson parser
@@ -79,8 +74,9 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
-    // optional - RxJava support for Room
-    implementation "androidx.room:room-rxjava3:$room_version"
+
+    implementation "androidx.room:room-ktx:2.5.0-alpha01"
+
     kapt "androidx.room:room-compiler:$room_version"
     // UI Tests
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.1.1'

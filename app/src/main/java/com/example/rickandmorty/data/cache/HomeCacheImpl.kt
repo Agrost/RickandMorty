@@ -1,8 +1,9 @@
 package com.example.rickandmorty.data.cache
 
 import com.example.rickandmorty.domain.entity.Person
+import javax.inject.Inject
 
-class HomeCacheImpl : HomeCache {
+class HomeCacheImpl @Inject constructor()  : HomeCache {
 
     private var personList: MutableList<Person> = mutableListOf()
     private var lastPage = 1

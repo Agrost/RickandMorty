@@ -14,8 +14,7 @@ abstract class BaseRecyclerAdapter<VH : BaseViewHolder<T>, T>(
         this.diffUtilCallback = diffUtilCallback
     }
 
-    var items: MutableList<T> = mutableListOf()
-        //TODO посмотреть можно ли избавиться от NotifyDataSetChanged
+    var items: List<T> = mutableListOf()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             diffUtilCallback?.let {
