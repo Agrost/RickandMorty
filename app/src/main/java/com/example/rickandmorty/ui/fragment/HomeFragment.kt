@@ -1,5 +1,6 @@
 package com.example.rickandmorty.ui.fragment
 
+import androidx.core.widget.doAfterTextChanged
 import com.example.rickandmorty.R
 import com.example.rickandmorty.appComponent
 import com.example.rickandmorty.ui.recycler.CharacterDiffCallback
@@ -17,15 +18,22 @@ class HomeFragment : BaseRecyclerFragment<HomeViewModel>(R.layout.recycler_fragm
     }
 
     override fun setupBindings() {
-        super.setupBindings()
         recyclerAdapter.setupDiffUtil(CharacterDiffCallback())
-        binding.rfRvPersons.adapter = recyclerAdapter
-        binding.button.setOnClickListener {
-            viewModel.test2()
-
+        binding.characterRecycler.adapter = recyclerAdapter
+        binding.search.doAfterTextChanged { text ->
+            viewModel.getPersonsOnSearch(text.toString())
         }
-        viewModel.mutableLiveData.observe(this) {
-            recyclerAdapter.items = it ?: listOf()
+    }
+
+    override fun observeViewModel() {
+        viewModel.observe(this) { state ->
+            state.apply(
+                binding.progressBar,
+                binding.recyclerShimmer,
+                binding.characterRecycler,
+                binding.errorContainer,
+                recyclerAdapter
+            )
         }
     }
 }
