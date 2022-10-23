@@ -11,19 +11,6 @@
     android:paddingHorizontal="20dp"
     android:paddingVertical="16dp">
 
-<!--    <androidx.constraintlayout.helper.widget.Flow-->
-<!--        android:id="@+id/header"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:constraint_referenced_ids="character_name, character_id"-->
-<!--        app:flow_horizontalBias="0"-->
-<!--        app:flow_horizontalGap="4dp"-->
-<!--        app:flow_horizontalStyle="packed"-->
-<!--        app:flow_verticalStyle="packed"-->
-<!--        app:flow_wrapMode="chain"-->
-<!--        app:layout_constraintHorizontal_chainStyle="packed"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
     <TextView
         android:id="@+id/character_name"
         android:layout_width="wrap_content"

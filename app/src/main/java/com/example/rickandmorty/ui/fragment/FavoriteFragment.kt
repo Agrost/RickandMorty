@@ -20,5 +20,6 @@ class FavoriteFragment : BaseRecyclerFragment<FavoriteViewModel>(R.layout.recycl
 
     override fun onResume() {
         super.onResume()
+        binding.button.setOnClickListener {  }
     }
 }

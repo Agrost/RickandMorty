@@ -6,7 +6,7 @@ import com.example.rickandmorty.databinding.PesronCardBinding
 import com.example.rickandmorty.domain.entity.Person
 import com.example.rickandmorty.ui.base.BaseRecyclerAdapter
 
-class RecyclerAdapter(
+class PersonRecyclerAdapter(
     onItemClickListener: ((Int) -> Unit)? = null
 ) : BaseRecyclerAdapter<CharacterViewHolder, Person>(onItemClickListener) {
 

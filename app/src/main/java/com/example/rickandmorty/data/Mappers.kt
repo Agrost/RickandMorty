@@ -8,6 +8,8 @@ import com.example.rickandmorty.domain.entity.Person
 interface Mapper<S, T> {
 
     fun map(source: S): T
+
+    interface Unit<T> : Mapper<T, kotlin.Unit>
 }
 
 // TODO еще поработать над мапперами
