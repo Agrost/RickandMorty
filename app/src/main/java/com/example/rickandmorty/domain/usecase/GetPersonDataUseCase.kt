@@ -1,11 +1,22 @@
 package com.example.rickandmorty.domain.usecase
 
 import com.example.rickandmorty.data.repository.home.HomeRepository
+import com.example.rickandmorty.domain.entity.Person
+import com.example.rickandmorty.ui.viewmodel.RecyclerFragmentsState
 import javax.inject.Inject
 
-class GetPersonDataUseCase @Inject constructor(
-    private val homeRepository: HomeRepository
-) {
-    suspend fun getData() = homeRepository.getData()
-    suspend fun getNextPage(name: String) = homeRepository.getNextPage(name)
+interface GetPersonDataUseCase {
+
+    suspend fun getData(): List<Person>
+
+    suspend fun getNextPage(name: String, page: Int): RecyclerFragmentsState
+
+    class Base @Inject constructor(private val homeRepository: HomeRepository) :
+        GetPersonDataUseCase {
+
+        override suspend fun getData() = homeRepository.getData()
+
+        override suspend fun getNextPage(name: String, page: Int) =
+            homeRepository.getNextPage(name, page)
+    }
 }

@@ -32,7 +32,10 @@ abstract class BaseFragment<VM : BaseViewModel>(@LayoutRes contentLayoutId: Int)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupBindings()
+        observeViewModel()
     }
 
     protected open fun setupBindings() {}
+
+    protected open fun observeViewModel() {}
 }
