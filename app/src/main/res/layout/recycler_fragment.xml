@@ -24,6 +24,7 @@
         app:layout_constraintTop_toBottomOf="@id/search"
         tools:listitem="@layout/pesron_card" />
 
+    <!--region Shimmer-->
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/recycler_shimmer"
         android:layout_width="match_parent"
@@ -42,7 +43,9 @@
         </LinearLayout>
 
     </com.facebook.shimmer.ShimmerFrameLayout>
+    <!--endregion-->
 
+    <!--region Error-->
     <LinearLayout
         android:id="@+id/error_container"
         android:layout_width="wrap_content"
@@ -65,7 +68,7 @@
             android:text="@string/error_message" />
 
         <Button
-            android:id="@+id/retry_btn"
+            android:id="@+id/retry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -73,6 +76,7 @@
             android:textColor="@color/purple_700" />
 
     </LinearLayout>
+    <!--endregion-->
 
     <ProgressBar
         android:id="@+id/progressBar"

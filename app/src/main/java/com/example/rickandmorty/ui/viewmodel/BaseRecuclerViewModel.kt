@@ -3,9 +3,9 @@ package com.example.rickandmorty.ui.viewmodel
 import com.example.rickandmorty.ui.EMPTY_STRING
 import com.example.rickandmorty.ui.base.BaseViewModel
 
-abstract class BaseRecyclerViewModel : BaseViewModel() {
+abstract class BasePersonListViewModel : BaseViewModel() {
 
-    protected var pageNumber = 1
+    protected var pageNumber = DEFAULT_PAGE_NUMBER
 
     protected var personName = EMPTY_STRING
 
