@@ -4,7 +4,7 @@ import com.example.rickandmorty.R
 import com.example.rickandmorty.appComponent
 import com.example.rickandmorty.ui.viewmodel.SavedViewModel
 
-class SavedFragment : BaseRecyclerFragment<SavedViewModel>(R.layout.recycler_fragment) {
+class SavedFragment : BaseCharacterFragment<SavedViewModel>(R.layout.recycler_fragment) {
 
     override val viewModelType: Class<SavedViewModel> = SavedViewModel::class.java
 

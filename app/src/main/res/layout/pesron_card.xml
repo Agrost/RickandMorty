@@ -12,7 +12,7 @@
     android:paddingVertical="16dp">
 
     <TextView
-        android:id="@+id/character_name"
+        android:id="@+id/pcTvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,16 +20,16 @@
         tools:text="Mojombo" />
 
     <TextView
-        android:id="@+id/character_id"
+        android:id="@+id/pcTvId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
-        app:layout_constraintStart_toEndOf="@id/character_name"
+        app:layout_constraintStart_toEndOf="@id/pcTvName"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="(1)" />
 
     <ImageView
-        android:id="@+id/delete_from_favorite"
+        android:id="@+id/pcIvDelete"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:src="@drawable/ic_close"
@@ -40,17 +40,17 @@
         android:contentDescription="@string/delete_from_favorites" />
 
     <ImageView
-        android:id="@+id/character_image"
+        android:id="@+id/pcIvPhoto"
         android:layout_width="match_parent"
         android:layout_height="360dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/character_name"
+        app:layout_constraintTop_toBottomOf="@id/pcTvName"
         tools:text="Mike"
         android:contentDescription="@string/character_image" />
 
     <Button
-        android:id="@+id/add_to_favorite"
+        android:id="@+id/pcIvLike"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
@@ -59,6 +59,6 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/character_image" />
+        app:layout_constraintTop_toBottomOf="@id/pcIvPhoto" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,17 +6,17 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rickandmorty.domain.entity.Person
 import com.example.rickandmorty.ui.EMPTY_STRING
-import com.example.rickandmorty.ui.recycler.PersonRecyclerAdapter
+import com.example.rickandmorty.ui.recycler.PersonAdapter
 import com.facebook.shimmer.ShimmerFrameLayout
 
-sealed interface RecyclerFragmentsState {
+sealed interface PersonListFragmentsState {
 
     fun apply(
         progressBar: ProgressBar,
         shimmerFrameLayout: ShimmerFrameLayout,
         recyclerView: RecyclerView,
         errorView: LinearLayout,
-        recyclerAdapter: PersonRecyclerAdapter
+        recyclerAdapter: PersonAdapter
     )
 
     abstract class Abstract(
@@ -24,14 +24,14 @@ sealed interface RecyclerFragmentsState {
         private val recyclerVisibility: Boolean = false,
         private val progressBarVisibility: Boolean = false,
         private val errorVisibility: Boolean = false
-    ) : RecyclerFragmentsState {
+    ) : PersonListFragmentsState {
 
         override fun apply(
             progressBar: ProgressBar,
             shimmerFrameLayout: ShimmerFrameLayout,
             recyclerView: RecyclerView,
             errorView: LinearLayout,
-            recyclerAdapter: PersonRecyclerAdapter
+            recyclerAdapter: PersonAdapter
         ) {
             shimmerFrameLayout.isVisible = shimmerVisibility
             progressBar.isVisible = progressBarVisibility
@@ -50,7 +50,7 @@ sealed interface RecyclerFragmentsState {
             shimmerFrameLayout: ShimmerFrameLayout,
             recyclerView: RecyclerView,
             errorView: LinearLayout,
-            recyclerAdapter: PersonRecyclerAdapter
+            recyclerAdapter: PersonAdapter
         ) {
             super.apply(progressBar, shimmerFrameLayout, recyclerView, errorView, recyclerAdapter)
 

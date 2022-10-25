@@ -4,7 +4,7 @@ import com.example.rickandmorty.R
 import com.example.rickandmorty.appComponent
 import com.example.rickandmorty.ui.viewmodel.FavoriteViewModel
 
-class FavoriteFragment : BaseRecyclerFragment<FavoriteViewModel>(R.layout.recycler_fragment) {
+class FavoriteFragment : BaseCharacterFragment<FavoriteViewModel>(R.layout.recycler_fragment) {
 
     override val viewModelType: Class<FavoriteViewModel> = FavoriteViewModel::class.java
 
